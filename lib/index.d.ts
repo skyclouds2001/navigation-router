@@ -22,10 +22,10 @@ interface Navigation extends EventTarget {
   readonly canGoBack: boolean
   readonly canGoForward: boolean
 
-  navigate(url: USVString, options?: NavigationNavigateOptions): NavigationResult
+  navigate(url: string, options?: NavigationNavigateOptions): NavigationResult
   reload(options?: NavigationReloadOptions): NavigationResult
 
-  traverseTo(key: DOMString, options?: NavigationOptions): NavigationResult
+  traverseTo(key: string, options?: NavigationOptions): NavigationResult
   back(options?: NavigationOptions): NavigationResult
   forward(options?: NavigationOptions): NavigationResult
 
@@ -80,10 +80,10 @@ interface NavigationHistoryEntry extends EventTarget {
   constructor: NavigationHistoryEntry
   readonly [Symbol.toStringTag]: 'NavigationHistoryEntry'
 
-  readonly url: USVString | null
-  readonly key: DOMString
-  readonly id: DOMString
-  readonly index: LongLong
+  readonly url: string | null
+  readonly key: string
+  readonly id: string
+  readonly index: number
   readonly sameDocument: boolean
 
   getState(): any
@@ -143,7 +143,7 @@ interface NavigateEvent extends Event {
   readonly hashChange: boolean
   readonly signal: AbortSignal
   readonly formData: FormData | null
-  readonly downloadRequest: DOMString | null
+  readonly downloadRequest: string | null
   readonly info: any
   readonly hasUAVisualTransition: boolean
 
@@ -152,7 +152,7 @@ interface NavigateEvent extends Event {
 }
 
 declare var NavigateEvent: {
-  new(type: DOMString, eventInitDict: NavigateEventInit): NavigateEvent
+  new(type: string, eventInitDict: NavigateEventInit): NavigateEvent
   readonly prototype: NavigateEvent
   readonly name: 'NavigateEvent'
 }
@@ -165,7 +165,7 @@ interface NavigateEventInit extends EventInit {
   hashChange?: boolean
   signal: AbortSignal
   formData?: FormData
-  downloadRequest?: DOMString
+  downloadRequest?: string
   info: any
   hasUAVisualTransition?: boolean
 }
@@ -186,10 +186,10 @@ interface NavigationDestination {
   constructor: NavigationDestination
   readonly [Symbol.toStringTag]: 'NavigationDestination'
 
-  readonly url: USVString
-  readonly key: DOMString
-  readonly id: DOMString
-  readonly index: LongLong
+  readonly url: string
+  readonly key: string
+  readonly id: string
+  readonly index: number
   readonly sameDocument: boolean
 
   getState(): any
@@ -210,7 +210,7 @@ interface NavigationCurrentEntryChangeEvent extends Event {
 }
 
 declare var NavigationCurrentEntryChangeEvent: {
-  new(type: DOMString, eventInitDict: NavigationCurrentEntryChangeEventInit): NavigationCurrentEntryChangeEvent
+  new(type: string, eventInitDict: NavigationCurrentEntryChangeEventInit): NavigationCurrentEntryChangeEvent
   readonly prototype: NavigationCurrentEntryChangeEvent
   readonly name: 'NavigationCurrentEntryChangeEvent'
 }
@@ -219,9 +219,3 @@ interface NavigationCurrentEntryChangeEventInit extends EventInit {
   navigationType?: NavigationType
   from: NavigationHistoryEntry
 }
-
-type DOMString = string
-
-type USVString = string
-
-type LongLong = number
