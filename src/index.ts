@@ -1,6 +1,12 @@
 /// <reference types="./../lib" />
 
-const globalRouter = Symbol('router')
+const global: Global = {
+  router: null
+}
+
+interface Global {
+  router: Router | null
+}
 
 export function createRouter(options: RouterOptions): Router {
   if (window == null) {
@@ -14,19 +20,19 @@ export function createRouter(options: RouterOptions): Router {
     go,
   }
 
-  if (window[globalRouter] != null) {
+  if (global.router != null) {
     throw new Error()
   }
 
-  window[globalRouter] = router
+  global.router = router
 
   window.customElements.define('router-link', RouterLink)
 
   return router
 }
 
-export function getRouter(): Router | undefined {
-  return window[globalRouter]
+export function getRouter(): Router | null {
+  return global.router
 }
 
 function back(): void {
