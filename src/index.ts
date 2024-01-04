@@ -55,39 +55,31 @@ export class RouterLink extends HTMLElement {
     super()
   }
 
-  to: string
-  mode: 'push' | 'replace' | null
-
-  static get observedAttributes() {
-    return ['to']
-  }
-
   connectedCallback() {
     const shadow = this.attachShadow({
       mode: 'open',
     })
 
+    const to = this.getAttribute('to')
+    const mode = this.getAttribute('mode')
+
+    if (to == null) {
+      throw new Error()
+    }
+
     const a = document.createElement('a')
-    a.href = this.to
+    a.href = to
     a.target = '_blank'
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
 
       window.navigation.navigate(a.href, {
-        history: this.mode != null && ['push', 'replace'].includes(this.mode) ? this.mode : 'auto',
+        history: mode != null && ['push', 'replace'].includes(mode) ? (mode as 'push' | 'replace') : 'auto',
       })
     })
 
     shadow.appendChild(a)
-  }
-
-  attributeChangedCallback(name: string, _: string, value: string) {
-    switch(name) {
-      case 'to':
-        this.to = value
-        break
-    }
   }
 }
 
