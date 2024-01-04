@@ -1,4 +1,4 @@
-/// <reference types="./../lib" />
+/// <reference types="./../lib/index.d.ts" />
 
 const global: Global = {
   router: null
@@ -25,8 +25,6 @@ export function createRouter(options: RouterOptions): Router {
   }
 
   global.router = router
-
-  window.customElements.define('router-link', RouterLink)
 
   return router
 }
@@ -69,7 +67,7 @@ export class RouterLink extends HTMLElement {
 
     const a = document.createElement('a')
     a.href = to
-    a.target = '_blank'
+    a.target = '_self'
 
     a.addEventListener('click', (e) => {
       e.preventDefault()
@@ -79,9 +77,55 @@ export class RouterLink extends HTMLElement {
       })
     })
 
+    const slot = document.createElement('slot')
+    a.appendChild(slot)
+
     shadow.appendChild(a)
   }
 }
+
+window.customElements.define('router-link', RouterLink)
+
+export class RouterView extends HTMLElement {
+  constructor() {
+    super()
+  }
+
+  connectedCallback() {
+    const shadow = this.attachShadow({
+      mode: 'open',
+    })
+
+    if (global.router == null) {
+      return
+    }
+
+    const { routes } = global.router.options
+
+    const slot = document.createElement('slot')
+
+    loadComponent(new URL(location.href))
+
+    window.navigation.addEventListener('navigate', (e) => {
+      loadComponent(new URL(e.destination.url))
+    })
+
+    function loadComponent(url: URL) {
+      const match = routes.find((route) => route.path === url.pathname)
+
+      shadow.childNodes.forEach((node) => {
+        shadow.removeChild(node)
+      })
+      if (match != null) {
+        shadow.appendChild(match.component)
+      } else {
+        shadow.appendChild(slot)
+      }
+    }
+  }
+}
+
+window.customElements.define('router-view', RouterView)
 
 interface Router {
   readonly options: Readonly<RouterOptions>
