@@ -1,3 +1,7 @@
+// builtin type definition for Navigation API
+// https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigation-api
+// ----------------------------------------------------------------
+
 interface Window {
   readonly navigation: Navigation
 }
