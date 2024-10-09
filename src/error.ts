@@ -1,0 +1,19 @@
+/// <reference types="./../lib/index.d.ts" />
+
+export class InvalidExecutionEnvironmentError extends Error {
+  constructor() {
+    super()
+    this.name = 'InvalidExecutionEnvironmentError'
+    this.message = 'invalid execution environment, the library should only be used in window scope'
+  }
+}
+
+export class NotSupportedAPIError extends Error {
+  constructor() {
+    super()
+    this.name = 'NotSupportedAPIError'
+    this.message = 'the navigation API is not supported, so the library is also not supported'
+  }
+}
+
+export class NotInitializedError extends Error { }
