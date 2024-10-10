@@ -38,6 +38,7 @@ export const createRouter = (options: RouterOptions): Router => {
   })
 
   global.customElements.define('router-view', RouterView)
+  global.customElements.define('router-link', RouterLink)
 
   navigation.addEventListener('navigate', () => {
     const url = new URL(global.location.href)
