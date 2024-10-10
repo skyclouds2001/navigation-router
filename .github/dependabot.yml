@@ -1,0 +1,50 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '12:00'
+      timezone: 'Asia/Shanghai'
+    allow:
+      - dependency-type: 'direct'
+    labels:
+      - 'dependencies'
+    milestone: 1
+    assignees:
+      - 'skyclouds2001'
+    reviewers:
+      - 'skyclouds2001'
+    open-pull-requests-limit: 5
+    pull-request-branch-name:
+      separator: '-'
+    target-branch: 'master'
+    groups:
+      all:
+        patterns:
+          - '*'
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+      time: '12:00'
+      timezone: 'Asia/Shanghai'
+    allow:
+      - dependency-type: 'direct'
+    labels:
+      - 'dependencies'
+    milestone: 1
+    assignees:
+      - 'skyclouds2001'
+    reviewers:
+      - 'skyclouds2001'
+    open-pull-requests-limit: 5
+    pull-request-branch-name:
+      separator: '-'
+    target-branch: 'master'
+    groups:
+      all:
+        patterns:
+          - '*'

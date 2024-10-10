@@ -1,0 +1,111 @@
+{
+  "name": "rollup-template-sky",
+  "private": true,
+  "version": "0.0.3",
+  "description": "An opinionated rollup starter template",
+  "keywords": [
+    "template",
+    "rollup"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skyclouds2001/rollup-template-sky.git"
+  },
+  "homepage": "https://github.com/skyclouds2001/rollup-template-sky#readme",
+  "bugs": {
+    "url": "https://github.com/skyclouds2001/rollup-template-sky/issues",
+    "email": "skyclouds2001@163.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "skyclouds2001",
+    "email": "skyclouds2001@163.com",
+    "url": "https://skyclouds2001.github.io"
+  },
+  "contributors": [
+    "skyclouds2001"
+  ],
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "browser": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "packageManager": "pnpm@9.11.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0",
+    "yarn": ">=1.22.0",
+    "pnpm": ">=8.11.0"
+  },
+  "scripts": {
+    "dev": "rollup --config --watch",
+    "build": "rollup --config",
+    "preview": "vite ./playground",
+    "lint": "eslint --fix . && prettier --write . && markdownlint --fix **/*.md && tsc --noEmit",
+    "test": "cross-env NODE_ENV=test vitest",
+    "clean": "rimraf node_modules && rimraf dist",
+    "changeset": "changeset",
+    "bump": "changeset version",
+    "commit": "cz",
+    "prepare": "is-ci || husky",
+    "preinstall": "only-allow pnpm"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.9",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/types": "^19.5.0",
+    "@eslint/js": "^9.12.0",
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/plugin-virtual": "^3.0.2",
+    "@types/node": "^22.7.4",
+    "@vitest/coverage-v8": "^2.1.2",
+    "@vitest/ui": "^2.1.2",
+    "commitizen": "^4.3.1",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-import-resolver-typescript": "^3.6.3",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsdoc": "^50.3.1",
+    "eslint-plugin-n": "^17.10.3",
+    "eslint-plugin-promise": "^7.1.0",
+    "eslint-plugin-vitest": "^0.5.4",
+    "globals": "^15.10.0",
+    "husky": "^9.1.6",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^15.2.10",
+    "markdownlint": "^0.35.0",
+    "markdownlint-cli": "^0.42.0",
+    "only-allow": "^1.2.1",
+    "pnpm": "9.11.0",
+    "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.24.0",
+    "tslib": "^2.7.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.8.0",
+    "vite": "^5.4.8",
+    "vitest": "^2.1.2"
+  }
+}
