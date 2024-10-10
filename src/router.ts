@@ -2,6 +2,7 @@
 
 import { global, RouterInstance } from './constant'
 import { DuplicateInitializedError, InvalidExecutionEnvironmentError, NotSupportedAPIError } from './error'
+import { RouterLink } from './router-link'
 import { RouterView } from './router-view'
 import type { Router, RouterOptions } from './types'
 
@@ -20,10 +21,13 @@ export const createRouter = (options: RouterOptions): Router => {
 
   const views = new Set<RouterView>()
 
+  const links = new Set<RouterLink>()
+
   const router = Object.assign<EventTarget, Omit<Router, keyof EventTarget>>(Object.create(EventTarget.prototype), {
     $navigation: navigation,
     $options: options,
     $views: views,
+    $links: links,
   })
 
   Object.defineProperty(global, RouterInstance, {
