@@ -38,7 +38,7 @@
 
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "tests/**/*", "src/**/*.json"],
+  "include": ["lib/**/*", "src/**/*", "tests/**/*"],
   "exclude": ["node_modules/**/*", "dist/**/*"],
   "references": [
     {
