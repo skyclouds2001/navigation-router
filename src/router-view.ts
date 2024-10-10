@@ -28,6 +28,10 @@ export class RouterView extends HTMLElement {
       throw new NotInitializedError()
     }
 
+    this.shadowRoot!.childNodes.forEach((node) => {
+      this.shadowRoot!.removeChild(node)
+    })
+
     router.$views.delete(this)
   }
 
