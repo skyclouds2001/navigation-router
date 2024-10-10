@@ -35,5 +35,13 @@ export const createRouter = (options: RouterOptions): Router => {
 
   global.customElements.define('router-view', RouterView)
 
+  navigation.addEventListener('navigate', () => {
+    const url = new URL(global.location.href)
+
+    router.$views.forEach((view) => {
+      view.loadComponent(url)
+    })
+  })
+
   return router
 }

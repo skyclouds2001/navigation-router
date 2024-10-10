@@ -1,3 +1,4 @@
+/* eslint-disable */
 // builtin type definition for Navigation API
 // https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigation-api
 // ----------------------------------------------------------------
@@ -45,7 +46,7 @@ interface Navigation extends EventTarget {
 }
 
 declare var Navigation: {
-  new(): Navigation
+  new (): Navigation
   readonly prototype: Navigation
   readonly name: 'Navigation'
 }
@@ -72,9 +73,9 @@ interface NavigationResult {
   finished: Promise<NavigationHistoryEntry>
 }
 
-type NavigationHistoryBehavior = "auto" | "push" | "replace"
+type NavigationHistoryBehavior = 'auto' | 'push' | 'replace'
 
-type NavigationType = "push" | "replace" | "reload" | "traverse"
+type NavigationType = 'push' | 'replace' | 'reload' | 'traverse'
 
 interface NavigationHistoryEntryEventMap {
   dispose: Event
@@ -101,7 +102,7 @@ interface NavigationHistoryEntry extends EventTarget {
 }
 
 declare var NavigationHistoryEntry: {
-  new(): NavigationHistoryEntry
+  new (): NavigationHistoryEntry
   readonly prototype: NavigationHistoryEntry
   readonly name: 'NavigationHistoryEntry'
 }
@@ -156,7 +157,7 @@ interface NavigateEvent extends Event {
 }
 
 declare var NavigateEvent: {
-  new(type: string, eventInitDict: NavigateEventInit): NavigateEvent
+  new (type: string, eventInitDict: NavigateEventInit): NavigateEvent
   readonly prototype: NavigateEvent
   readonly name: 'NavigateEvent'
 }
@@ -180,9 +181,9 @@ interface NavigationInterceptOptions {
   scroll: NavigationScrollBehavior
 }
 
-type NavigationFocusReset = "after-transition" | "manual"
+type NavigationFocusReset = 'after-transition' | 'manual'
 
-type NavigationScrollBehavior = "after-transition" | "manual"
+type NavigationScrollBehavior = 'after-transition' | 'manual'
 
 type NavigationInterceptHandler = () => Promise<void>
 
@@ -200,7 +201,7 @@ interface NavigationDestination {
 }
 
 declare var NavigationDestination: {
-  new(): NavigationDestination
+  new (): NavigationDestination
   readonly prototype: NavigationDestination
   readonly name: 'NavigationDestination'
 }
@@ -214,7 +215,7 @@ interface NavigationCurrentEntryChangeEvent extends Event {
 }
 
 declare var NavigationCurrentEntryChangeEvent: {
-  new(type: string, eventInitDict: NavigationCurrentEntryChangeEventInit): NavigationCurrentEntryChangeEvent
+  new (type: string, eventInitDict: NavigationCurrentEntryChangeEventInit): NavigationCurrentEntryChangeEvent
   readonly prototype: NavigationCurrentEntryChangeEvent
   readonly name: 'NavigationCurrentEntryChangeEvent'
 }
