@@ -1,3 +1,3 @@
-# Contributing to rollup-template-sky
+# Contributing to navigation-router
 
-Thanks for your interest in contributing to rollup-template-sky!
+Thanks for your interest in contributing to navigation-router!

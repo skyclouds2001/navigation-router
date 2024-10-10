@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "skyclouds2001/rollup-template-sky"
+      "repo": "skyclouds2001/navigation-router"
     }
   ],
   "commit": false,

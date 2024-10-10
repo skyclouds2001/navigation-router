@@ -1,19 +1,19 @@
 {
-  "name": "rollup-template-sky",
+  "name": "navigation-router",
   "private": true,
-  "version": "0.0.3",
-  "description": "An opinionated rollup starter template",
+  "version": "0.0.0",
+  "description": "A router for any framework base on the Navigation API",
   "keywords": [
-    "template",
-    "rollup"
+    "router",
+    "navigation"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skyclouds2001/rollup-template-sky.git"
+    "url": "git+https://github.com/skyclouds2001/navigation-router.git"
   },
-  "homepage": "https://github.com/skyclouds2001/rollup-template-sky#readme",
+  "homepage": "https://github.com/skyclouds2001/navigation-router#readme",
   "bugs": {
-    "url": "https://github.com/skyclouds2001/rollup-template-sky/issues",
+    "url": "https://github.com/skyclouds2001/navigation-router/issues",
     "email": "skyclouds2001@163.com"
   },
   "license": "MIT",

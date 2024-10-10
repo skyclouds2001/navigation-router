@@ -27,7 +27,7 @@ export default defineConfig({
       format: 'umd',
       sourcemap: true,
       globals: {},
-      name: 'rollup-template-sky',
+      name: 'navigation-router',
     },
   ],
   external: [],

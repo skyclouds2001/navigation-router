@@ -12,7 +12,7 @@ permissions:
 jobs:
   stale:
     name: Stale issue or pull request if have had no activity for a long time
-    if: github.repository == 'skyclouds2001/rollup-template-sky'
+    if: github.repository == 'skyclouds2001/navigation-router'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:

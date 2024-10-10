@@ -1,4 +1,4 @@
-# rollup-template-sky
+# navigation-router
 
 ## 1.0.0
 
