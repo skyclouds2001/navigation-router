@@ -1,4 +1,3 @@
-import path from 'node:path'
 import { defineConfig } from 'rollup'
 import virtual from '@rollup/plugin-virtual'
 import alias from '@rollup/plugin-alias'
@@ -32,20 +31,16 @@ export default defineConfig({
   ],
   external: [],
   plugins: [
-    virtual({
-      module: 'export default 0',
-    }),
-    alias({
-      entries: {
-        '@': path.resolve(process.cwd(), 'src'),
-      },
-    }),
+    virtual({}),
+    alias(),
     nodeResolve(),
     commonjs(),
-    replace({
-      __BUILD_DATE__: Date.now(),
+    replace(),
+    typescript({
+      declaration: true,
+      declarationDir: 'dist',
+      rootDir: 'src',
     }),
-    typescript(),
     json(),
     terser(),
   ],
