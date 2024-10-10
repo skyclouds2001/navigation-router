@@ -2,8 +2,13 @@
 
 import { global, RouterInstance } from './constant'
 import { InvalidExecutionEnvironmentError, NotSupportedAPIError } from './error'
+import { RouterView } from './router-view'
 import type { Router, RouterOptions } from './types'
 
+/**
+ *
+ * @param options
+ */
 export function createRouter(options: RouterOptions): Router {
   if (global == null) {
     throw new InvalidExecutionEnvironmentError()
@@ -14,9 +19,12 @@ export function createRouter(options: RouterOptions): Router {
 
   const navigation = global.navigation
 
+  const views = new Set<RouterView>()
+
   const router = Object.assign<EventTarget, Omit<Router, keyof EventTarget>>(Object.create(EventTarget.prototype), {
     $navigation: navigation,
     $options: options,
+    $views: views,
   })
 
   Object.defineProperty(global, RouterInstance, {
@@ -25,6 +33,8 @@ export function createRouter(options: RouterOptions): Router {
     configurable: false,
     enumerable: false,
   })
+
+  global.customElements.define('router-view', RouterView)
 
   return router
 }

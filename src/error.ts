@@ -16,4 +16,10 @@ export class NotSupportedAPIError extends Error {
   }
 }
 
-export class NotInitializedError extends Error { }
+export class NotInitializedError extends Error {
+  constructor() {
+    super()
+    this.name = 'NotInitializedError'
+    this.message = 'the router has not initialized yet'
+  }
+}
