@@ -26,7 +26,7 @@ export class RouterLink extends HTMLElement {
     a.addEventListener('click', (e) => {
       e.preventDefault()
 
-      router.$navigation.navigate(this.getAttribute('to') ?? global.location.pathname)
+      router.$navigation.navigate(this.to ?? global.location.pathname)
     })
     this.shadowRoot!.append(a)
 
@@ -55,6 +55,18 @@ export class RouterLink extends HTMLElement {
         a.href = newValue ?? global.location.pathname
         break
       }
+    }
+  }
+
+  get to() {
+    return this.getAttribute('to')
+  }
+
+  set to(value: string | null) {
+    if (value != null) {
+      this.setAttribute('to', value)
+    } else {
+      this.removeAttribute('to')
     }
   }
 }
