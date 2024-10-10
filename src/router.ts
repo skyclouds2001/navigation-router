@@ -1,20 +1,19 @@
 /// <reference types="./../lib/index.d.ts" />
 
 import { global, RouterInstance } from './constant'
-import { InvalidExecutionEnvironmentError, NotSupportedAPIError } from './error'
+import { DuplicateInitializedError, InvalidExecutionEnvironmentError, NotSupportedAPIError } from './error'
 import { RouterView } from './router-view'
 import type { Router, RouterOptions } from './types'
 
-/**
- *
- * @param options
- */
-export function createRouter(options: RouterOptions): Router {
+export const createRouter = (options: RouterOptions): Router => {
   if (global == null) {
     throw new InvalidExecutionEnvironmentError()
   }
   if (global.navigation == null) {
     throw new NotSupportedAPIError()
+  }
+  if (RouterInstance in window) {
+    throw new DuplicateInitializedError()
   }
 
   const navigation = global.navigation

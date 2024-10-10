@@ -23,3 +23,11 @@ export class NotInitializedError extends Error {
     this.message = 'the router has not initialized yet'
   }
 }
+
+export class DuplicateInitializedError extends Error {
+  constructor() {
+    super()
+    this.name = 'DuplicateInitializedError'
+    this.message = 'the router has initialized yet'
+  }
+}
