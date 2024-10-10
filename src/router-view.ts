@@ -17,13 +17,7 @@ export class RouterView extends HTMLElement {
       throw new NotInitializedError()
     }
 
-    const path = global.location.pathname
-
-    const node = router.$options.routes.find((route) => route.path === path)
-
-    if (node != null) {
-      this.shadowRoot!.append(node.component)
-    }
+    this.loadComponent(new URL(global.location.href))
 
     router.$views.add(this)
   }
@@ -35,5 +29,22 @@ export class RouterView extends HTMLElement {
     }
 
     router.$views.delete(this)
+  }
+
+  loadComponent(url: URL) {
+    const router = global[RouterInstance]
+    if (router == null) {
+      throw new NotInitializedError()
+    }
+
+    this.shadowRoot!.childNodes.forEach((node) => {
+      this.shadowRoot!.removeChild(node)
+    })
+
+    const node = router.$options.routes.find((route) => route.path === url.pathname)
+
+    if (node != null) {
+      this.shadowRoot!.append(node.component)
+    }
   }
 }
