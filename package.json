@@ -1,12 +1,35 @@
 {
   "name": "navigation-router",
-  "private": true,
   "version": "0.0.0",
   "description": "A router for any framework base on the Navigation API",
   "keywords": [
     "router",
     "navigation"
   ],
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "jsdelivr": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "browser": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/skyclouds2001/navigation-router.git"
@@ -25,22 +48,6 @@
   "contributors": [
     "skyclouds2001"
   ],
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "browser": "./dist/index.umd.js",
-  "unpkg": "./dist/index.umd.js",
-  "jsdelivr": "./dist/index.umd.js",
-  "types": "./dist/index.d.ts",
-  "typings": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs.js",
-      "browser": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "type": "module",
   "packageManager": "pnpm@9.11.0",
   "engines": {
     "node": ">=20.0.0",
