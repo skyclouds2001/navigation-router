@@ -20,6 +20,13 @@ const router = createRouter({
       path: '/b',
       component: createComponent('b'),
     },
+    {
+      path: '/c',
+      components: {
+        c1: createComponent('c1'),
+        c2: createComponent('c2'),
+      },
+    },
   ],
 })
 

@@ -45,10 +45,20 @@ export class RouterView extends HTMLElement {
       this.shadowRoot!.removeChild(node)
     })
 
-    const node = router.$options.routes.find((route) => route.path === url.pathname)
+    const route = router.$options.routes.find((route) => route.path === url.pathname)
 
-    if (node != null) {
-      this.shadowRoot!.append(node.component)
+    if (route != null) {
+      if ('component' in route) {
+        this.shadowRoot!.append(route.component)
+      } else if ('components' in route) {
+        Object.values(route.components).forEach((component) => {
+          this.shadowRoot!.append(component)
+        })
+      } else {
+        throw 'must specified component'
+      }
+    } else {
+      throw 'can not find a route'
     }
   }
 }

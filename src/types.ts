@@ -3,13 +3,20 @@
 import type { RouterLink } from './router-link'
 import type { RouterView } from './router-view'
 
-interface RouterRecord {
+interface RouterRecordSingleView {
   path: string
   component: Node
 }
 
+interface RouterRecordMultipleView {
+  path: string
+  components: Record<string, Node>
+}
+
+type RouterRecordRaw = RouterRecordSingleView | RouterRecordMultipleView
+
 export interface RouterOptions {
-  routes: RouterRecord[]
+  routes: RouterRecordRaw[]
 }
 
 export interface Router extends EventTarget {
