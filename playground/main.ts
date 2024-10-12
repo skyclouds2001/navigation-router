@@ -1,25 +1,24 @@
 import { createRouter } from '../dist/index.es'
 
-const home = document.createElement('div')
-home.innerText = 'home'
-const a = document.createElement('div')
-a.innerText = 'a'
-const b = document.createElement('div')
-b.innerText = 'b'
+const createComponent = (name: string) => {
+  const el = document.createElement('div')
+  el.innerText = name
+  return el
+}
 
 const router = createRouter({
   routes: [
     {
       path: '/',
-      component: home,
+      component: createComponent('home'),
     },
     {
       path: '/a',
-      component: a,
+      component: createComponent('a'),
     },
     {
       path: '/b',
-      component: b,
+      component: createComponent('b'),
     },
   ],
 })
