@@ -12,7 +12,7 @@ export class NotSupportedAPIError extends Error {
   constructor() {
     super()
     this.name = 'NotSupportedAPIError'
-    this.message = 'the navigation API is not supported, so the library is also not supported'
+    this.message = 'the Navigation API is not supported, so the library is also not supported'
   }
 }
 
@@ -29,5 +29,13 @@ export class DuplicateInitializedError extends Error {
     super()
     this.name = 'DuplicateInitializedError'
     this.message = 'the router has initialized yet'
+  }
+}
+
+export class MissingRouteError extends Error {
+  constructor() {
+    super()
+    this.name = 'MissingRouteError'
+    this.message = 'can not find a matched route'
   }
 }

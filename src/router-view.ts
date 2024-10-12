@@ -1,7 +1,7 @@
 /// <reference types="./../lib/index.d.ts" />'
 
 import { global, RouterInstance } from './constant'
-import { NotInitializedError } from './error'
+import { MissingRouteError, NotInitializedError } from './error'
 
 export class RouterView extends HTMLElement {
   constructor() {
@@ -59,26 +59,18 @@ export class RouterView extends HTMLElement {
 
     const route = router.$options.routes.find((route) => route.path === url.pathname)
 
-    if (route != null) {
-      if ('component' in route) {
-        if (this.name == null) {
-          this.shadowRoot!.append(route.component)
-        }
-      } else if ('components' in route) {
-        if (this.name == null) {
-          if ('default' in route.components) {
-            this.shadowRoot!.append(route.components['default'])
-          }
-        } else {
-          if (this.name in route.components) {
-            this.shadowRoot!.append(route.components[this.name])
-          }
-        }
-      } else {
-        throw 'must specified component or components'
+    if (route == null) {
+      throw new MissingRouteError()
+    }
+
+    if ('component' in route) {
+      if (this.name == null) {
+        this.shadowRoot!.append(route.component)
       }
-    } else {
-      throw 'can not find a matched route'
+    } else if ('components' in route) {
+      if ((this.name ?? 'default') in route.components) {
+        this.shadowRoot!.append(route.components[this.name ?? 'default'])
+      }
     }
   }
 }
