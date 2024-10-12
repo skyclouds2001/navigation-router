@@ -35,6 +35,18 @@ export class RouterView extends HTMLElement {
     router.$views.delete(this)
   }
 
+  get name() {
+    return this.getAttribute('name')
+  }
+
+  set name(value: string | null) {
+    if (value != null) {
+      this.setAttribute('name', value)
+    } else {
+      this.removeAttribute('name')
+    }
+  }
+
   loadComponent(url: URL) {
     const router = global[RouterInstance]
     if (router == null) {
@@ -49,16 +61,24 @@ export class RouterView extends HTMLElement {
 
     if (route != null) {
       if ('component' in route) {
-        this.shadowRoot!.append(route.component)
+        if (this.name == null) {
+          this.shadowRoot!.append(route.component)
+        }
       } else if ('components' in route) {
-        Object.values(route.components).forEach((component) => {
-          this.shadowRoot!.append(component)
-        })
+        if (this.name == null) {
+          if ('default' in route.components) {
+            this.shadowRoot!.append(route.components['default'])
+          }
+        } else {
+          if (this.name in route.components) {
+            this.shadowRoot!.append(route.components[this.name])
+          }
+        }
       } else {
-        throw 'must specified component'
+        throw 'must specified component or components'
       }
     } else {
-      throw 'can not find a route'
+      throw 'can not find a matched route'
     }
   }
 }

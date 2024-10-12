@@ -23,6 +23,7 @@ const router = createRouter({
     {
       path: '/c',
       components: {
+        default: createComponent('c0'),
         c1: createComponent('c1'),
         c2: createComponent('c2'),
       },
