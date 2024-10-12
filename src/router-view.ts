@@ -11,6 +11,8 @@ export class RouterView extends HTMLElement {
     })
   }
 
+  readonly [Symbol.toStringTag] = 'RouterView'
+
   connectedCallback() {
     const router = global[RouterInstance]
     if (router == null) {

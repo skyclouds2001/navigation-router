@@ -6,6 +6,8 @@ export class InvalidExecutionEnvironmentError extends Error {
     this.name = 'InvalidExecutionEnvironmentError'
     this.message = 'invalid execution environment, the library should only be used in window scope'
   }
+
+  readonly [Symbol.toStringTag] = 'InvalidExecutionEnvironmentError'
 }
 
 export class NotSupportedAPIError extends Error {
@@ -14,6 +16,8 @@ export class NotSupportedAPIError extends Error {
     this.name = 'NotSupportedAPIError'
     this.message = 'the Navigation API is not supported, so the library is also not supported'
   }
+
+  readonly [Symbol.toStringTag] = 'NotSupportedAPIError'
 }
 
 export class NotInitializedError extends Error {
@@ -22,6 +26,8 @@ export class NotInitializedError extends Error {
     this.name = 'NotInitializedError'
     this.message = 'the router has not initialized yet'
   }
+
+  readonly [Symbol.toStringTag] = 'NotInitializedError'
 }
 
 export class DuplicateInitializedError extends Error {
@@ -30,6 +36,8 @@ export class DuplicateInitializedError extends Error {
     this.name = 'DuplicateInitializedError'
     this.message = 'the router has initialized yet'
   }
+
+  readonly [Symbol.toStringTag] = 'DuplicateInitializedError'
 }
 
 export class MissingRouteError extends Error {
@@ -38,4 +46,6 @@ export class MissingRouteError extends Error {
     this.name = 'MissingRouteError'
     this.message = 'can not find a matched route'
   }
+
+  readonly [Symbol.toStringTag] = 'MissingRouteError'
 }
