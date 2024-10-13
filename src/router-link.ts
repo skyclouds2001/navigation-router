@@ -2,7 +2,7 @@
 
 import { global, RouterInstance } from './constant'
 import { NotInitializedError } from './error'
-import type { Router } from './types'
+import type { Router } from './router'
 
 export class RouterLink extends HTMLElement {
   static get observedAttributes() {

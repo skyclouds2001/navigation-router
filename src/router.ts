@@ -4,31 +4,10 @@ import { global, RouterInstance } from './constant'
 import { DuplicateInitializedError, InvalidExecutionEnvironmentError, NotSupportedAPIError } from './error'
 import { RouterLink } from './router-link'
 import { RouterView } from './router-view'
-import type { Router, RouterOptions } from './types'
+import type { RouterOptions } from './types'
 
 export const createRouter = (options: RouterOptions): Router => {
-  if (global == null) {
-    throw new InvalidExecutionEnvironmentError()
-  }
-  if (global.navigation == null) {
-    throw new NotSupportedAPIError()
-  }
-  if (RouterInstance in window) {
-    throw new DuplicateInitializedError()
-  }
-
-  const navigation = global.navigation
-
-  const views = new Set<RouterView>()
-
-  const links = new Set<RouterLink>()
-
-  const router = Object.assign<EventTarget, Omit<Router, keyof EventTarget>>(Object.create(EventTarget.prototype), {
-    $navigation: navigation,
-    $options: options,
-    $views: views,
-    $links: links,
-  })
+  const router = new Router(options, global)
 
   Object.defineProperty(global, RouterInstance, {
     value: router,
@@ -40,13 +19,56 @@ export const createRouter = (options: RouterOptions): Router => {
   global.customElements.define('router-view', RouterView)
   global.customElements.define('router-link', RouterLink)
 
-  navigation.addEventListener('navigate', () => {
-    const url = new URL(global.location.href)
-
-    router.$views.forEach((view) => {
-      view.loadComponent(url)
-    })
-  })
-
   return router
+}
+
+type RouterEventMap = Record<string, Event>
+
+export class Router extends EventTarget {
+  constructor(options: RouterOptions, global: Window & typeof globalThis) {
+    super()
+
+    if (global == null) {
+      throw new InvalidExecutionEnvironmentError()
+    }
+    if (global.navigation == null) {
+      throw new NotSupportedAPIError()
+    }
+    if (RouterInstance in window) {
+      throw new DuplicateInitializedError()
+    }
+
+    const views = new Set<RouterView>()
+    const links = new Set<RouterLink>()
+
+    this.$navigation = global.navigation
+    this.$options = options
+    this.$views = views
+    this.$links = links
+
+    this.$navigation.addEventListener('navigate', () => {
+      const url = new URL(global.location.href)
+
+      this.$views.forEach((view) => {
+        view.loadComponent(url)
+      })
+    })
+  }
+
+  readonly $navigation: Navigation
+
+  readonly $options: Readonly<RouterOptions>
+
+  readonly $views: Set<RouterView>
+
+  readonly $links: Set<RouterLink>
+
+  addEventListener<K extends keyof RouterEventMap>(type: K, listener: (this: Router, ev: RouterEventMap[K]) => unknown, options?: boolean | AddEventListenerOptions): void
+  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
+    super.addEventListener(type, listener, options)
+  }
+  removeEventListener<K extends keyof RouterEventMap>(type: K, listener: (this: Router, ev: RouterEventMap[K]) => unknown, options?: boolean | EventListenerOptions): void
+  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void {
+    super.removeEventListener(type, listener, options)
+  }
 }

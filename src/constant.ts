@@ -1,4 +1,4 @@
-import type { Router } from './types'
+import type { Router } from './router'
 
 export const global = window
 

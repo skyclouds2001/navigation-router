@@ -2,7 +2,7 @@
 
 import { global, RouterInstance } from './constant'
 import { MissingRouteError, NotInitializedError } from './error'
-import type { Router } from './types'
+import type { Router } from './router'
 
 export class RouterView extends HTMLElement {
   constructor() {

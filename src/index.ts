@@ -6,4 +6,6 @@ export { RouterView } from './router-view'
 
 export { createRouter } from './router'
 
-export type { Router, RouterOptions } from './types'
+export type { Router } from './router'
+
+export type { RouterOptions } from './types'
