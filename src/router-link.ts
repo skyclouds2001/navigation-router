@@ -23,8 +23,6 @@ export class RouterLink extends HTMLElement {
     })
   }
 
-  readonly [Symbol.toStringTag] = 'RouterLink'
-
   readonly router: Router
 
   readonly shadow: ShadowRoot

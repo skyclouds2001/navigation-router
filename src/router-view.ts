@@ -19,8 +19,6 @@ export class RouterView extends HTMLElement {
     })
   }
 
-  static readonly [Symbol.toStringTag] = 'RouterView'
-
   readonly router: Router
 
   readonly shadow: ShadowRoot
