@@ -28,19 +28,31 @@ export class RouterLink extends HTMLElement {
   readonly shadow: ShadowRoot
 
   connectedCallback() {
-    const a = document.createElement('a')
-    a.href = this.getAttribute('to') ?? global.location.pathname
-    a.addEventListener('click', (e) => {
-      e.preventDefault()
+    if (this.custom) {
+      const slot = document.createElement('slot')
+      this.shadow.addEventListener('click', (e) => {
+        e.preventDefault()
 
-      this.router.$navigation.navigate(this.to ?? global.location.pathname, {
-        history: this.replace ? 'replace' : 'push',
+        this.router.$navigation.navigate(this.to ?? global.location.pathname, {
+          history: this.replace ? 'replace' : 'push',
+        })
       })
-    })
-    this.shadow.append(a)
+      this.shadow.append(slot)
+    } else {
+      const a = document.createElement('a')
+      a.href = this.getAttribute('to') ?? global.location.pathname
+      a.addEventListener('click', (e) => {
+        e.preventDefault()
 
-    const slot = document.createElement('slot')
-    a.append(slot)
+        this.router.$navigation.navigate(this.to ?? global.location.pathname, {
+          history: this.replace ? 'replace' : 'push',
+        })
+      })
+      this.shadow.append(a)
+
+      const slot = document.createElement('slot')
+      a.append(slot)
+    }
 
     this.router.$links.add(this)
   }
@@ -83,6 +95,18 @@ export class RouterLink extends HTMLElement {
       this.setAttribute('replace', '')
     } else {
       this.removeAttribute('replace')
+    }
+  }
+
+  get custom() {
+    return this.hasAttribute('custom')
+  }
+
+  set custom(value: boolean) {
+    if (value) {
+      this.setAttribute('custom', '')
+    } else {
+      this.removeAttribute('custom')
     }
   }
 }
