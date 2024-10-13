@@ -28,7 +28,9 @@ export class RouterLink extends HTMLElement {
     a.addEventListener('click', (e) => {
       e.preventDefault()
 
-      router.$navigation.navigate(this.to ?? global.location.pathname)
+      router.$navigation.navigate(this.to ?? global.location.pathname, {
+        history: this.replace ? 'replace' : 'push',
+      })
     })
     this.shadowRoot!.append(a)
 
@@ -69,6 +71,18 @@ export class RouterLink extends HTMLElement {
       this.setAttribute('to', value)
     } else {
       this.removeAttribute('to')
+    }
+  }
+
+  get replace() {
+    return this.hasAttribute('replace')
+  }
+
+  set replace(value: boolean) {
+    if (value) {
+      this.setAttribute('replace', '')
+    } else {
+      this.removeAttribute('replace')
     }
   }
 }
