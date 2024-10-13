@@ -2,39 +2,41 @@
 
 import { global, RouterInstance } from './constant'
 import { MissingRouteError, NotInitializedError } from './error'
+import type { Router } from './types'
 
 export class RouterView extends HTMLElement {
   constructor() {
     super()
-    this.attachShadow({
+
+    const router = global[RouterInstance]
+    if (router == null) {
+      throw new NotInitializedError()
+    }
+    this.router = router
+
+    this.shadow = this.attachShadow({
       mode: 'open',
     })
   }
 
-  readonly [Symbol.toStringTag] = 'RouterView'
+  static readonly [Symbol.toStringTag] = 'RouterView'
+
+  readonly router: Router
+
+  readonly shadow: ShadowRoot
 
   connectedCallback() {
-    const router = global[RouterInstance]
-    if (router == null) {
-      throw new NotInitializedError()
-    }
-
     this.loadComponent(new URL(global.location.href))
 
-    router.$views.add(this)
+    this.router.$views.add(this)
   }
 
   disconnectedCallback() {
-    const router = global[RouterInstance]
-    if (router == null) {
-      throw new NotInitializedError()
-    }
-
-    this.shadowRoot!.childNodes.forEach((node) => {
-      this.shadowRoot!.removeChild(node)
+    this.shadow.childNodes.forEach((node) => {
+      this.shadow.removeChild(node)
     })
 
-    router.$views.delete(this)
+    this.router.$views.delete(this)
   }
 
   get name() {
@@ -50,16 +52,11 @@ export class RouterView extends HTMLElement {
   }
 
   loadComponent(url: URL) {
-    const router = global[RouterInstance]
-    if (router == null) {
-      throw new NotInitializedError()
-    }
-
-    this.shadowRoot!.childNodes.forEach((node) => {
-      this.shadowRoot!.removeChild(node)
+    this.shadow.childNodes.forEach((node) => {
+      this.shadow.removeChild(node)
     })
 
-    const route = router.$options.routes.find((route) => route.path === url.pathname)
+    const route = this.router.$options.routes.find((route) => route.path === url.pathname)
 
     if (route == null) {
       throw new MissingRouteError()
@@ -67,11 +64,11 @@ export class RouterView extends HTMLElement {
 
     if ('component' in route) {
       if (this.name == null) {
-        this.shadowRoot!.append(route.component)
+        this.shadow.append(route.component)
       }
     } else if ('components' in route) {
       if ((this.name ?? 'default') in route.components) {
-        this.shadowRoot!.append(route.components[this.name ?? 'default'])
+        this.shadow.append(route.components[this.name ?? 'default'])
       }
     }
   }
