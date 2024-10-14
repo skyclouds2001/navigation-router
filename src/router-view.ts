@@ -24,7 +24,7 @@ export class RouterView extends HTMLElement {
   readonly shadow: ShadowRoot
 
   connectedCallback() {
-    this.loadComponent(new URL(global.location.href))
+    this.updateComponent(new URL(global.location.href))
 
     this.router.$views.add(this)
   }
@@ -49,7 +49,7 @@ export class RouterView extends HTMLElement {
     }
   }
 
-  loadComponent(url: URL) {
+  updateComponent(url: URL) {
     this.shadow.childNodes.forEach((node) => {
       this.shadow.removeChild(node)
     })

@@ -50,7 +50,10 @@ export class Router extends EventTarget {
       const url = new URL(global.location.href)
 
       this.$views.forEach((view) => {
-        view.loadComponent(url)
+        view.updateComponent(url)
+      })
+      this.$links.forEach((link) => {
+        link.updateLinkStatus(url)
       })
     })
   }

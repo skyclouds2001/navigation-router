@@ -64,21 +64,21 @@ export class RouterLink extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    const a = this.shadow.firstChild! as HTMLAnchorElement
-
     switch (name) {
       case 'to': {
-        a.href = newValue ?? global.location.pathname
+        if (this.shadow.firstChild instanceof HTMLAnchorElement) {
+          this.shadow.firstChild.href = newValue ?? global.location.pathname
+        }
         break
       }
     }
   }
 
   get to() {
-    return this.getAttribute('to')
+    return this.getAttribute('to') ?? ''
   }
 
-  set to(value: string | null) {
+  set to(value: string) {
     if (value != null) {
       this.setAttribute('to', value)
     } else {
@@ -107,6 +107,43 @@ export class RouterLink extends HTMLElement {
       this.setAttribute('custom', '')
     } else {
       this.removeAttribute('custom')
+    }
+  }
+
+  get activeClass() {
+    return this.getAttribute('active-class')
+  }
+
+  set activeClass(value: string | null) {
+    if (value != null) {
+      this.setAttribute('active-class', value)
+    } else {
+      this.removeAttribute('active-class')
+    }
+  }
+
+  get exactActiveClass() {
+    return this.getAttribute('exact-active-class')
+  }
+
+  set exactActiveClass(value: string | null) {
+    if (value != null) {
+      this.setAttribute('exact-active-class', value)
+    } else {
+      this.removeAttribute('exact-active-class')
+    }
+  }
+
+  updateLinkStatus(url: URL) {
+    if (url.pathname === this.to) {
+      this.classList.add(this.activeClass ?? 'router-link-active')
+      this.classList.add(this.exactActiveClass ?? 'router-link-exact-active')
+    } else if (url.pathname.includes(this.to)) {
+      this.classList.add(this.activeClass ?? 'router-link-active')
+      this.classList.remove(this.exactActiveClass ?? 'router-link-exact-active')
+    } else {
+      this.classList.remove(this.activeClass ?? 'router-link-active')
+      this.classList.remove(this.exactActiveClass ?? 'router-link-exact-active')
     }
   }
 }
