@@ -39,3 +39,11 @@ export class MissingRouteError extends Error {
     this.message = 'can not find a matched route'
   }
 }
+
+export class MissingNecessaryPropertyError extends Error {
+  constructor() {
+    super()
+    this.name = 'MissingNecessaryPropertyError'
+    this.message = 'missing necessary property for this instance'
+  }
+}

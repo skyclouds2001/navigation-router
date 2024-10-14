@@ -1,7 +1,7 @@
 /// <reference types="./../lib/index.d.ts" />
 
 import { global, RouterInstance } from './constant'
-import { NotInitializedError } from './error'
+import { MissingNecessaryPropertyError, NotInitializedError } from './error'
 import type { Router } from './router'
 
 export class RouterLink extends HTMLElement {
@@ -28,6 +28,10 @@ export class RouterLink extends HTMLElement {
   readonly shadow: ShadowRoot
 
   connectedCallback() {
+    if (this.to == null) {
+      throw new MissingNecessaryPropertyError()
+    }
+
     if (this.custom) {
       const slot = document.createElement('slot')
       this.shadow.addEventListener('click', (e) => {
@@ -75,15 +79,11 @@ export class RouterLink extends HTMLElement {
   }
 
   get to() {
-    return this.getAttribute('to') ?? ''
+    return this.getAttribute('to') as string
   }
 
   set to(value: string) {
-    if (value != null) {
-      this.setAttribute('to', value)
-    } else {
-      this.removeAttribute('to')
-    }
+    this.setAttribute('to', value)
   }
 
   get replace() {
