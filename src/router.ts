@@ -46,8 +46,8 @@ export class Router extends EventTarget {
     this.$views = views
     this.$links = links
 
-    this.$navigation.addEventListener('navigate', () => {
-      const url = new URL(global.location.href)
+    this.$navigation.addEventListener('navigate', (e) => {
+      const url = new URL(e.destination.url)
 
       this.$views.forEach((view) => {
         view.updateComponent(url)

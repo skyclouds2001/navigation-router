@@ -5,10 +5,6 @@ import { MissingNecessaryPropertyError, NotInitializedError } from './error'
 import type { Router } from './router'
 
 export class RouterLink extends HTMLElement {
-  static get observedAttributes() {
-    return ['to']
-  }
-
   constructor() {
     super()
 
@@ -34,29 +30,25 @@ export class RouterLink extends HTMLElement {
 
     if (this.custom) {
       const slot = document.createElement('slot')
-      this.shadow.addEventListener('click', (e) => {
-        e.preventDefault()
-
-        this.router.$navigation.navigate(this.to ?? global.location.pathname, {
-          history: this.replace ? 'replace' : 'push',
-        })
-      })
       this.shadow.append(slot)
     } else {
       const a = document.createElement('a')
-      a.href = this.getAttribute('to') ?? global.location.pathname
+      a.href = 'javascript:void(0)'
+      a.target = '_self'
       a.addEventListener('click', (e) => {
         e.preventDefault()
-
-        this.router.$navigation.navigate(this.to ?? global.location.pathname, {
-          history: this.replace ? 'replace' : 'push',
-        })
       })
       this.shadow.append(a)
 
       const slot = document.createElement('slot')
       a.append(slot)
     }
+
+    this.shadow.addEventListener('click', () => {
+      this.router.$navigation.navigate(this.to, {
+        history: this.replace ? 'replace' : 'push',
+      })
+    })
 
     this.router.$links.add(this)
   }
@@ -65,17 +57,6 @@ export class RouterLink extends HTMLElement {
     this.shadow.removeChild(this.shadow.firstChild!)
 
     this.router.$links.delete(this)
-  }
-
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    switch (name) {
-      case 'to': {
-        if (this.shadow.firstChild instanceof HTMLAnchorElement) {
-          this.shadow.firstChild.href = newValue ?? global.location.pathname
-        }
-        break
-      }
-    }
   }
 
   get to() {

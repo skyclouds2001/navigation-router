@@ -24,7 +24,7 @@ export class RouterView extends HTMLElement {
   readonly shadow: ShadowRoot
 
   connectedCallback() {
-    this.updateComponent(new URL(global.location.href))
+    this.updateComponent(new URL(this.router.$navigation.currentEntry!.url!))
 
     this.router.$views.add(this)
   }
