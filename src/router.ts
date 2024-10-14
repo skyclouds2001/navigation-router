@@ -47,13 +47,29 @@ export class Router extends EventTarget {
     this.$links = links
 
     this.$navigation.addEventListener('navigate', (e) => {
-      const url = new URL(e.destination.url)
+      if (!e.isTrusted) {
+        return
+      }
 
-      this.$views.forEach((view) => {
-        view.updateComponent(url)
-      })
-      this.$links.forEach((link) => {
-        link.updateLinkStatus(url)
+      if (!e.canIntercept) {
+        return
+      }
+
+      if (e.hashChange || e.downloadRequest != null) {
+        return
+      }
+
+      e.intercept({
+        handler: async () => {
+          const url = new URL(e.destination.url)
+
+          this.$views.forEach((view) => {
+            view.updateComponent(url)
+          })
+          this.$links.forEach((link) => {
+            link.updateLinkStatus(url)
+          })
+        },
       })
     })
   }
