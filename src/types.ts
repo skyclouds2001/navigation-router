@@ -16,4 +16,6 @@ type RouterRecordRaw = RouterRecordSingleView | RouterRecordMultipleView
 
 export interface RouterOptions {
   routes: RouterRecordRaw[]
+  linkActiveClass?: string
+  linkExactActiveClass?: string
 }

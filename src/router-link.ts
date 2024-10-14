@@ -135,15 +135,18 @@ export class RouterLink extends HTMLElement {
   }
 
   updateLinkStatus(url: URL) {
+    const activeClass = this.activeClass ?? this.router.$options.linkActiveClass ?? 'router-link-active'
+    const exactActiveClass = this.exactActiveClass ?? this.router.$options.linkExactActiveClass ?? 'router-link-exact-active'
+
     if (url.pathname === this.to) {
-      this.classList.add(this.activeClass ?? 'router-link-active')
-      this.classList.add(this.exactActiveClass ?? 'router-link-exact-active')
+      this.classList.add(activeClass)
+      this.classList.add(exactActiveClass)
     } else if (url.pathname.includes(this.to)) {
-      this.classList.add(this.activeClass ?? 'router-link-active')
-      this.classList.remove(this.exactActiveClass ?? 'router-link-exact-active')
+      this.classList.add(activeClass)
+      this.classList.remove(exactActiveClass)
     } else {
-      this.classList.remove(this.activeClass ?? 'router-link-active')
-      this.classList.remove(this.exactActiveClass ?? 'router-link-exact-active')
+      this.classList.remove(activeClass)
+      this.classList.remove(exactActiveClass)
     }
   }
 }

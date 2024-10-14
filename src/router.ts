@@ -7,7 +7,7 @@ import { RouterView } from './router-view'
 import type { RouterOptions } from './types'
 
 export const createRouter = (options: RouterOptions): Router => {
-  const router = new Router(options, global)
+  const router = new Router(options)
 
   Object.defineProperty(global, RouterInstance, {
     value: router,
@@ -25,7 +25,7 @@ export const createRouter = (options: RouterOptions): Router => {
 type RouterEventMap = Record<string, Event>
 
 export class Router extends EventTarget {
-  constructor(options: RouterOptions, global: Window & typeof globalThis) {
+  constructor(options: RouterOptions) {
     super()
 
     if (global == null) {
