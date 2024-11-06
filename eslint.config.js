@@ -7,6 +7,7 @@ import promisePlugin from 'eslint-plugin-promise'
 import importPlugin from 'eslint-plugin-import'
 import jsdocPlugin from 'eslint-plugin-jsdoc'
 import vitestPlugin from 'eslint-plugin-vitest'
+import playwrightPlugin from 'eslint-plugin-playwright'
 import typescript from 'typescript-eslint'
 
 export default [
@@ -64,13 +65,18 @@ export default [
     },
   },
   {
-    name: 'custom-tests',
-    files: ['**/tests/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    name: 'custom-test-unit',
+    files: ['**/tests/unit/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
     settings: {
       vitest: {
         typecheck: true,
       },
     },
     ...vitestPlugin.configs.recommended,
+  },
+  {
+    name: 'custom-test-e2e',
+    files: ['**/tests/e2e/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}'],
+    ...playwrightPlugin.configs['flat/recommended'],
   },
 ]
