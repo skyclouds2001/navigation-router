@@ -33,13 +33,13 @@
     <base href="/" />
   </head>
   <body>
-    <router-link to="/">home</router-link>
-    <router-link to="/a">a</router-link>
-    <router-link to="/b">b</router-link>
-    <router-link to="/c">c</router-link>
-    <router-view></router-view>
-    <router-view name="c1"></router-view>
-    <router-view name="c2"></router-view>
+    <router-link to="/" title="link:home" data-testid="link:home">link:home</router-link>
+    <router-link to="/a" title="link:a" data-testid="link:a">link:a</router-link>
+    <router-link to="/b" title="link:b" data-testid="link:b">link:b</router-link>
+    <router-link to="/c" title="link:c" data-testid="link:c">link:c</router-link>
+    <router-view title="view:" data-testid="view:"></router-view>
+    <router-view name="c1" title="view:c1" data-testid="view:c1"></router-view>
+    <router-view name="c2" title="view:c2" data-testid="view:c2"></router-view>
     <script type="module" src="/main.ts"></script>
   </body>
 </html>

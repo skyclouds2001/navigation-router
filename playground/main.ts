@@ -3,6 +3,8 @@ import { createRouter } from '../dist/index.es'
 const createComponent = (name: string) => {
   const el = document.createElement('div')
   el.innerText = name
+  el.title = name
+  el.setAttribute('data-testid', name)
   return el
 }
 
@@ -23,7 +25,7 @@ const router = createRouter({
     {
       path: '/c',
       components: {
-        default: createComponent('c0'),
+        default: createComponent('c'),
         c1: createComponent('c1'),
         c2: createComponent('c2'),
       },
