@@ -1,11 +1,13 @@
 import { defineConfig, devices } from '@playwright/test'
+
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: 'tests/e2e',
   timeout: 60 * 1000,
   expect: {
     timeout: 5 * 1000,
   },
   fullyParallel: true,
+  outputDir: 'playwright-report',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
@@ -14,11 +16,14 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
+
   webServer: {
-    command: 'npm run dev',
+    command: 'pnpm preview',
     url: 'http://localhost:5173',
     timeout: 30 * 1000,
+    reuseExistingServer: !process.env.CI,
   },
+
   projects: [
     {
       name: 'chromium',
