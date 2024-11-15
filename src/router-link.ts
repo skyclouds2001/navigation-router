@@ -50,6 +50,8 @@ export class RouterLink extends HTMLElement {
       })
     })
 
+    this.updateLinkStatus(new URL(this.router.$navigation.currentEntry!.url!))
+
     this.router.$links.add(this)
   }
 
