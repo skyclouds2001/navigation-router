@@ -23,10 +23,6 @@ test('router-link should able to navigate', async ({ page }) => {
 })
 
 test('router-link should able to load class name accordingly', async ({ page }) => {
-  const fs = await import('node:fs')
-  const str = await page.getByTestId('link:home').evaluate((el) => el.outerHTML)
-  fs.appendFileSync('log.txt', (str ?? 'unknown') + '\n')
-
   await expect(page.getByTestId('link:home')).toHaveClass('router-link-active router-link-exact-active')
 
   await expect(page.getByTestId('link:a')).toHaveClass('')
